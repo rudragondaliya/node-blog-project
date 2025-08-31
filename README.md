@@ -1,4 +1,3 @@
----
 # 📝 Node Blog Project
 
 A fully functional blogging platform built with **Node.js**, **Express**, **EJS**, and **MongoDB**, featuring user authentication, session handling, and blog post management.

@@ -1,0 +1,163 @@
+<%- include('partials/header', { title: "Home" }) %>
+<style>
+  .featured-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .featured-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  }
+  .featured-card img,
+  .featured-card .placeholder {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0;
+  }
+  .featured-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 1.5rem 1rem;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+    color: #fff;
+    border-radius: 0 0 1rem 1rem;
+  }
+  .featured-badge {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.5rem;
+    margin-right: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .featured-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .featured-date {
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+</style>
+
+<div class="container mt-5  ">
+
+
+  <section class="mb-5">
+  <div class="row g-4 justify-content-center">
+
+    <% if (featuredBlogs && featuredBlogs.length) { %>
+      <% featuredBlogs.forEach((blog, index) => { %>
+        <div class="<%= index === 0 ? 'col-lg-6 col-md-6' : 'col-lg-6 col-md-6' %>">
+          <a href="/blogs/<%= blog._id %>" class="text-decoration-none featured-card d-block">
+            <% if (blog.image) { %>
+              <img src="<%= blog.image %>" alt="<%= blog.title %>" loading="lazy" />
+            <% } else { %>
+              <div class="placeholder bg-secondary"></div>
+            <% } %>
+
+            <div class="featured-overlay">
+              <% if (blog.category && blog.category.length) { %>
+                <div class="mb-2">
+                  <% blog.category.forEach(cat => { %>
+                    <span class="featured-badge"><%= cat %></span>
+                  <% }) %>
+                </div>
+              <% } %>
+              <h5 class="featured-title"><%= blog.title %></h5>
+              <small class="featured-date"><%= new Date(blog.createdAt).toDateString() %></small>
+            </div>
+          </a>
+        </div>
+      <% }) %>
+    <% } %>
+
+  </div>
+</section>
+
+  <section>
+    <h3 class="mb-4">Recent Posts</h3>
+    <div class="row g-4">
+
+      <% if (recentBlogs && recentBlogs.length) { %>
+        <% recentBlogs.forEach(blog => { %>
+          <div class="col-lg-4 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+              <% if (blog.image) { %>
+                <img src="<%= blog.image %>" class="card-img-top" style="height: 180px; object-fit: cover;">
+              <% } else { %>
+                <div class="bg-light" style="height:180px;"></div>
+              <% } %>
+              <div class="card-body">
+                
+                <% if (blog.category && blog.category.length) { %>
+                  <div class="mb-2">
+                    <% blog.category.forEach(cat => { %>
+                      <span class="badge bg-success me-1 text-uppercase"><%= cat %></span>
+                    <% }) %>
+                  </div>
+                <% } %>
+
+                <h6 class="card-title fw-bold">
+                  <a href="/blogs/<%= blog._id %>" class="text-dark text-decoration-none"><%= blog.title %></a>
+                </h6>
+
+                <div class="mb-2 text-muted" style="font-size: 0.9rem;">
+                  <small>By <%= blog.name || "Unknown Author" %> • <%= new Date(blog.createdAt).toLocaleDateString() %></small>
+                </div>
+
+                <p class="card-text" style="font-size: 0.9rem; min-height: 72px; overflow: hidden;">
+                  <%= blog.content.length > 150 ? blog.content.substring(0, 150) + "..." : blog.content %>
+                </p>
+
+                <a href="/blogs/<%= blog._id %>" class="text-primary small">Read More</a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </section>
+
+  <nav aria-label="Page navigation example" class="my-5">
+    <ul class="pagination justify-content-center">
+      <% if (pagination && pagination.pages && pagination.pages.length) { %>
+        <% pagination.pages.forEach(pageNum => { %>
+          <li class="page-item <%= pagination.current === pageNum ? 'active' : '' %>">
+            <a class="page-link" href="/?page=<%= pageNum %>"><%= pageNum %></a>
+          </li>
+        <% }) %>
+      <% } else { %>
+        
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <% } %>
+    </ul>
+  </nav>
+
+ 
+  <section class="bg-light p-4 text-center rounded mb-5">
+    <h5>Subscribe to our newsletter</h5>
+    <p class="mb-3 text-muted" style="max-width:600px; margin:0 auto;">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit repudiandae autem in explicabo, ipsam rerum.
+    </p>
+    <form action="/subscribe" method="POST" class="d-flex justify-content-center">
+      <input type="email" name="email" placeholder="Enter your email address" required class="form-control w-50 me-2">
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </section>
+
+</div>
+
+<%- include('partials/footer') %>

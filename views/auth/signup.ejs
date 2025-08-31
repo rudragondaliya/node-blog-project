@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BlogFlow - Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .signup-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 480px;
+            width: 100%;
+            padding: 1.5rem 1.25rem; 
+            transition: all 0.3s ease;
+        }
+
+        .signup-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+
+        .input-field:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .signup-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-link {
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .login-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        textarea.input-field {
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-card">
+        <div class="text-center mb-6"> 
+            <h1 class="text-2xl font-bold text-gray-800 mb-1">Create your account</h1>
+            <p class="text-gray-600 text-sm">Join BlogFlow and start sharing</p>
+        </div>
+
+        <form action="/signup" method="POST" enctype="multipart/form-data" class="space-y-4"> 
+            <div>
+                <label for="name" class="block mb-1">Full Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Your full name"
+                    required
+                    class="input-field w-full px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                />
+            </div>
+
+            <div>
+                <label for="email" class="block mb-1">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                    class="input-field w-full px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                />
+            </div>
+
+            <div>
+                <label for="password" class="block mb-1">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                    class="input-field w-full px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                />
+            </div>
+
+            <div>
+                <label for="bio" class="block mb-1">Your Bio</label>
+                <textarea
+                    id="bio"
+                    name="bio"
+                    placeholder="Tell us a little about yourself"
+                    rows="2"
+                    class="input-field w-full px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                ></textarea>
+            </div>
+
+            <div>
+                <label for="avatar" class="block mb-1">Upload Avatar</label>
+                <input
+                    type="file"
+                    id="avatar"
+                    name="avatar"
+                    accept="image/*"
+                    class="w-full text-gray-700 text-sm"
+                />
+            </div>
+
+            <button
+                type="submit"
+                class="signup-btn w-full py-2 px-4 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+                Sign Up
+            </button>
+        </form>
+
+        <p class="text-center text-gray-600 mt-4 text-sm">
+            Already have an account?
+            <a href="/" class="login-link font-semibold">Login here</a>
+        </p>
+    </div>
+</body>
+</html>
